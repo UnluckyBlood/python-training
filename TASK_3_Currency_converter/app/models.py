@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, Float, Datetime
+from sqlalchemy import Column, Integer, String, Float, DateTime, UniqueConstraint
 from app.database import Base
 from datetime import datetime
 
@@ -6,10 +6,9 @@ class CurrencyRate(Base):
     __tablename__ = "currency_rates"
 
     id = Column(Integer, primary_key=True, index=True)
-    base_currency = Column(String(3), nullable=False, index=True) #primer RUB
-    target_currency = Column(String(3), nullable=False, index=True) # naprimer tenge KZT
+    base_currency = Column(String(3), nullable=False, index=True)
+    target_currency = Column(String(3), nullable=False, index=True)
     rate = Column(Float, nullable=False)
-    last_update = Column(Datetime, default=datetime.utcnow, onupdate=datetime.utcnow)
+    last_updated = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)   # было last_update
 
-    #specik double (base, target)
-    __table_args__=(db.UniqueConstraint("base_currency", "target_currency", name="base_target_uc"),)
+    __table_args__ = (UniqueConstraint('base_currency', 'target_currency', name='base_target_uc'),)
