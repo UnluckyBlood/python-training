@@ -3,16 +3,17 @@ from datetime import datetime
 from typing import Optional
 
 class ConvertRequest(BaseModel):
-    from_currency: str = Field(..., alias="from", min_length=3, max_length=3, description="Kod started valets (naprimer, RUB)")
-    to_corrency: str = Field(..., alias="to", min_length=3, max_length=3, description="Kod iskomoi valets (naprimer KZT)")
-    amount: float = Field(..., gt=0, description="sum for convert")
-    date: Optional[str] = Field(None, description="data in formate YYYY-MM-DD")
+    from_currency: str = Field(..., alias="from", min_length=3, max_length=3, description="Код исходной валюты (например, RUB)")
+    to_currency: str = Field(..., alias="to", min_length=3, max_length=3, description="Код целевой валюты (например, KZT)")
+    amount: float = Field(..., gt=0, description="Сумма для конвертации")
+    date: Optional[str] = Field(None, description="Дата в формате YYYY-MM-DD")
 
-    @field_validator("from_currency", "to_corrency")
+    @field_validator("from_currency", "to_currency")
     def validate_currency_code(cls, v):
-        if not v.isalpha() or len(v) !=3:
-            raise ValueError("Код валюты должен иметь кратко оф название состоящее из трёх букв")
+        if not v.isalpha() or len(v) != 3:
+            raise ValueError("Код валюты должен состоять из трёх букв")
         return v.upper()
+
     @field_validator("date")
     def validate_date(cls, v):
         if v:
@@ -20,7 +21,8 @@ class ConvertRequest(BaseModel):
                 datetime.strptime(v, "%Y-%m-%d")
             except ValueError:
                 raise ValueError("Неверный формат даты, используйте YYYY-MM-DD")
-            return v
+        return v
+
 class ConvertResponse(BaseModel):
     from_currency: str
     to_currency: str
@@ -30,4 +32,4 @@ class ConvertResponse(BaseModel):
     last_updated: datetime
 
 class CurrencyListResponse(BaseModel):
-    from_currency: list[str]
+    currencies: list[str]
