@@ -13,4 +13,4 @@ del number
 
 number = 7
 print("Результат: ", number)
-#)х
+#)хзpupupu
