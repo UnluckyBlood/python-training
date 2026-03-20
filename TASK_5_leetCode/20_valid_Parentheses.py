@@ -23,8 +23,6 @@ class Solution:
         print (stack)
         return len(stack) == 0
         
-
-    
 sol = Solution()
 result = sol.isValid("{[()]}")
 print(result)
