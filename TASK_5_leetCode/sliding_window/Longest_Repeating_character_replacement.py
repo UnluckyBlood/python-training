@@ -24,6 +24,8 @@
 # 1 <= s.length <= 1000
 # 0 <= k <= s.length
 
+# можно ещё через ord , эта функция возвращает индекс символа в общем словаре тип 65 у А и тд, по старинке, но в данном случае это медленне
+
 
 
 class Solution:
@@ -40,5 +42,5 @@ class Solution:
                 count[s[left]] -= 1
                 left +=1
             max_len = max(max_len, right-left+1)
-            
+
         return max_len
