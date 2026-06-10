@@ -39,6 +39,9 @@ def maxProfit(prices: List[int]) -> int:
             max_sell = (prices[i] - min_prices)
     return max_sell
 prices=[7,1,5,3,6,4]
+<<<<<<< HEAD
+print (maxProfit(prices))
+=======
 print (maxProfit(prices))
 
 
@@ -59,3 +62,4 @@ class Solution:
             r += 1
         return maxp
         
+>>>>>>> develop
